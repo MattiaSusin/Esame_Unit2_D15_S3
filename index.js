@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <p class="card-text"><strong>Brand:</strong> ${product.brand}</p>
                         <p class="card-text"><strong>Price:</strong> ${product.price}€</p>
                         <a href="./dettails.html?productId=${product._id}" class="btn btn-primary">Vedi Dettagli</a>
-                        <a href="./backoffice.html?productId=${product._id}" class="btn btn-secondary">Modifica</a>
+                        <a href="./backoffice.html?productId=${product._id}" class="btn btn-primary">Modifica</a>
                     </div>
                 </div>
             `; 
@@ -42,6 +42,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("loading-indicator").style.display = "none";
     }
 
-    fetchProducts();
+    fetchProducts(); //! RICHIAMO LA FUNZIONE SENNO' NON SI 
 });
       

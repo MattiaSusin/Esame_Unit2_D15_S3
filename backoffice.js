@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const create = id !== null;
 
     if (create) {
-        document.getElementById("form-title").textContent = "Modifica Prodotto";
+        document.getElementById("form-title").textContent = "Edit Products"; 
         fetchProduct(id);
     }
 
@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
             deleteProduct(id);
         }
     });
+                                                                                
 
     function fetchProduct(id) {
         fetch("https://striveschool-api.herokuapp.com/api/product/" + id, {
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmIxODdjMjM5YzAwMTUyZjRiNGEiLCJpYXQiOjE3MTgzNTI2NjQsImV4cCI6MTcxOTU2MjI2NH0.zfSPnMsez_qRyGwpyoUXFHXNnLnpQfeQ2VE-C7Lty0c"
             }
         })
-        .then(response => response.json())
+        .then(response => response.json())                                          //!--------------RICAVO I VALORI (DATI) DAL FORM------------------------
         .then(product => {
             form.name.value = product.name;
             form.description.value = product.description;
@@ -55,10 +56,10 @@ document.addEventListener("DOMContentLoaded", function() {
             deleteButton.style.display = "block";
         })
         .catch(error => {
-            console.error(error);
+            console.log(error);
         });
     }
-
+                                                                                            //!--------------INIZIO CREAZIONE-----------------------------------
     function createProduct(product) {
         fetch("https://striveschool-api.herokuapp.com/api/product/", {
             method: "POST",
@@ -68,17 +69,17 @@ document.addEventListener("DOMContentLoaded", function() {
             body: JSON.stringify(product)
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error("response");
+            if (response.ok) {
+                window.location.href = "/";
             }
-            window.location.href = "/";
+            throw new Error("response");
         })
         .catch(error => {
-            console.error(error);
+            console.log(error);
         });
     }
 
-    function updateProduct(id, product) {
+    function updateProduct(id, product) {                                                   //!--------------INIZIO MODIFICHE CREAZIONE -----------------------------------
         fetch("https://striveschool-api.herokuapp.com/api/product/" + id, {
             method: "PUT",
             headers: {
@@ -87,16 +88,16 @@ document.addEventListener("DOMContentLoaded", function() {
             body: JSON.stringify(product)
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error(" response");
+            if (response.ok) {
+                window.location.href = "/";
             }
-            window.location.href = "/";
+            throw new Error(" response");
         })
         .catch(error => {
-            console.error(error);
+            console.log(error);
         });
     }
-
+                                                                                                //!--------------INIZIO ELIMINAZIONE-----------------------------------
     function deleteProduct(id) {
         fetch("https://striveschool-api.herokuapp.com/api/product/" + id, {
             method: "DELETE",
@@ -104,13 +105,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmIxODdjMjM5YzAwMTUyZjRiNGEiLCJpYXQiOjE3MTgzNTI2NjQsImV4cCI6MTcxOTU2MjI2NH0.zfSPnMsez_qRyGwpyoUXFHXNnLnpQfeQ2VE-C7Lty0c"        }
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error("Response");
+            if (response.ok) {
+                window.location.href = "/";
             }
-            window.location.href = "/";
+            throw new Error("Response");
         })
         .catch(error => {
-            console.error(error);
+            console.log(error);
         });
     }
 });
