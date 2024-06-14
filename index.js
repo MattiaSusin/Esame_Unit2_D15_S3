@@ -6,20 +6,18 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
         .then(response => response.json())
-        .then(products => displayProducts(products))
-        .catch(error => {
-            console.error("Fetch error: ", error);
-            displayError("Si è verificato un errore durante il caricamento dei prodotti.");
-        });
+        .then(products => productsAll(products))
+        .catch(error => console.log(error));
     }
 
-    function displayProducts(products) {
+    function productsAll(products) {
         const list = document.getElementById("products-list");
         list.innerHTML = "";
         products.forEach(product => {
             const card = document.createElement("div");
             card.className = "col-md-4";
-            card.innerHTML = `
+            //!  INIZIO INSERIMENTO CARD ALL'INTERNO DELL'HTML-------------------------------------------------------------------------------------------
+            card.innerHTML = `                                                                     
                 <div class="card mb-4">
                     <img src="${product.imageUrl}" class="card-img-top" alt="${product.name}">
                     <div class="card-body">
@@ -31,8 +29,9 @@ document.addEventListener("DOMContentLoaded", function() {
                         <a href="./backoffice.html?productId=${product._id}" class="btn btn-secondary">Modifica</a>
                     </div>
                 </div>
-            `;
-            list.appendChild(card);
+            `; 
+            //! FINE INSERIMENTO CARD ALL'INTERNO DELL'HTML--------------------------------------------------------------------------------------------------
+            list.appendChild(card);  //? INSERIMENTO CARD NELLE LISTE DELL' index.html
         });
         document.getElementById("loading-indicator").style.display = "none";
     }
