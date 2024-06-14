@@ -21,11 +21,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="card mb-4">
                     <img src="${product.imageUrl}" class="card-img-top" alt="${product.name}">
                     <div class="card-body">
-                        <h5 class="card-name">${product.name}</h5>
-                        <p class="card-description">${product.description}</p>
-                        <p class="card-band"><strong>Brand:</strong> ${product.brand}</p>
-                        <p class="card-price"><strong>Price:</strong> ${product.price}€</p>
-                        <a href="./dettails.html?productId=${product._id}" class="btn btn-primary">Dettagli Prodotto</a>
+                         <h5 class="card-title">${product.name}</h5>
+                        <p class="card-text">${product.description}</p>
+                        <p class="card-text"><strong>Brand:</strong> ${product.brand}</p>
+                        <p class="card-text"><strong>Price:</strong> ${product.price}€</p>
+                        <a href="./dettails.html?productId=${product._id}" class="btn btn-primary">Vedi Dettagli</a>
                         <a href="./backoffice.html?productId=${product._id}" class="btn btn-secondary">Modifica</a>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function displayErr(message) {
-        const list = document.getElementById("products-list");
+        const list = document.getElementById("productsAll");
         list.innerHTML = `<div class="alert alert-danger" role="alert">${message}</div>`;
         document.getElementById("loading-indicator").style.display = "none";
     }

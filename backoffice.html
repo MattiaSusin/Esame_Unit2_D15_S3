@@ -9,48 +9,52 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Shop Online</a>
+            <a class="navbar-brand" href="./index.html">MY SHOP</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="./index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="./backoffice.html">Gestione Prodotti</a>
+                        <a class="nav-link active" href="./backoffice.html">Edit Products</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container mt-5">
-        <h1 class="display-4" id="form-title">Aggiungi Prodotto</h1>
+        <h1 class="display-4 " id="form-title">Add Product</h1>
         <form id="product-form">
             <div class="mb-3">
-                <label for="name" class="form-label">Nome</label>
+                <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" required>
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Descrizione</label>
-                <textarea class="form-control" id="description" rows="10" required></textarea>
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" rows="6" required></textarea>
             </div>
             <div class="mb-3">
                 <label for="brand" class="form-label">Brand</label>
                 <input type="text" class="form-control" id="brand" required>
             </div>
             <div class="mb-3">
-                <label for="price" class="form-label">Prezzo</label>
+                <label for="price" class="form-label">Price</label>
                 <input type="number" class="form-control" id="price" required>
             </div>
             <div class="mb-3">
-                <label for="imageUrl" class="form-label">URL Immagine</label>
+                <label for="imageUrl" class="form-label">URL Immage</label>
                 <input type="url" class="form-control" id="imageUrl" required>
             </div>
-            <button type="submit" class="btn btn-primary">Salva</button>
-            <button type="reset" class="btn btn-secondary" id="reset-button">Reset</button>
-            <button type="button" class="btn btn-danger" id="delete-button" style="display: none;">Elimina</button>
+            <div class="container px-0">
+                <div class="d-flex justify-content-start "> 
+            <button type="submit" class="btn btn-primary me-2 px-4 text-center">Save</button>
+            <button type="reset" class="btn btn-secondary me-2 px-4" id="reset-button text-center ">Reset</button>
+            <button type="button" class="btn btn-danger px-4" id="delete-button" style="display: none;">Delete</button>
+            </div>
+        </div>
         </form>
     </div>
     <script src="./backoffice.js"></script>
