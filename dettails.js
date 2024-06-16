@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (!id) return;
 
-    fetch("https://striveschool-api.herokuapp.com/api/product/" + id, {
+    fetch("https://striveschool-api.herokuapp.com/api/product/" + id, {     //! Esempio da seguire  URL:  https://striveschool-api.herokuapp.com/api/agenda/:id_dinamico
         headers: {
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmIxODdjMjM5YzAwMTUyZjRiNGEiLCJpYXQiOjE3MTgzNTI2NjQsImV4cCI6MTcxOTU2MjI2NH0.zfSPnMsez_qRyGwpyoUXFHXNnLnpQfeQ2VE-C7Lty0c"
         }
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         displayError("Si è verificato un errore durante il caricamento dei dettagli del prodotto.");
     });
 
-    function displayProduct(product) {
+    function displayProduct(product) {                              //! CATTURIAMO I VALORI INSERITI NEL BACKOFFICE 
         document.getElementById("product-name").textContent = product.name;
         document.getElementById("product-description").textContent = product.description;
         document.getElementById("product-brand").textContent = "Brand: " + product.brand;
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("product-image").src = product.imageUrl;
     }
 
-    function displayError(message) {
+    function displayError(message) {                                            //!MESSAGGIO ALERT 
         const container = document.querySelector(".container");
         container.innerHTML = `<div class="alert alert-danger" role="alert">${message}</div>`;
     }

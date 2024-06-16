@@ -4,10 +4,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const resetButton = document.getElementById("reset-button");
     const params = new URLSearchParams(window.location.search);
     const id = params.get("productId");
-    const create = id !== null;
+    const create = id === null;
 
-    if (create) {
-        document.getElementById("form-title").textContent = "Edit Products"; 
+    if (create) {                                                       //!Inizio crezione pulsanti Delete e Reset (che sono collegati)
+        deleteButton.style.display = "none";                 
+    } else {
+        document.getElementById("form-title").textContent = "Edit Products";
         fetchProduct(id);
     }
 
@@ -19,16 +21,16 @@ document.addEventListener("DOMContentLoaded", function() {
             brand: form.brand.value,
             price: form.price.value,
             imageUrl: form.imageUrl.value
-        };
+        }
         if (create) {
-            updateProduct(id, product);
-        } else {
             createProduct(product);
+        } else {
+            updateProduct(id, product);
         }
     });
 
     resetButton.addEventListener("click", function(event) {
-        if (!confirm("Sei sicuro di voler resettare il form?")) {
+        if (confirm("Sei sicuro di voler resettare?")) {
             event.preventDefault();
         }
     });
@@ -38,15 +40,14 @@ document.addEventListener("DOMContentLoaded", function() {
             deleteProduct(id);
         }
     });
-                                                                                
 
-    function fetchProduct(id) {
-        fetch("https://striveschool-api.herokuapp.com/api/product/" + id, {
+    function fetchProduct(id) {                                                                 
+        fetch(`https://striveschool-api.herokuapp.com/api/product/${id}`, {                 //! Esempio da seguire  URL:  https://striveschool-api.herokuapp.com/api/agenda/:id_dinamico
             headers: {
                 "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmIxODdjMjM5YzAwMTUyZjRiNGEiLCJpYXQiOjE3MTgzNTI2NjQsImV4cCI6MTcxOTU2MjI2NH0.zfSPnMsez_qRyGwpyoUXFHXNnLnpQfeQ2VE-C7Lty0c"
             }
         })
-        .then(response => response.json())                                          //!--------------RICAVO I VALORI (DATI) DAL FORM------------------------
+        .then(response => response.json())                  //!response è l'oggetto che rappresenta la risposta da parte del server 
         .then(product => {
             form.name.value = product.name;
             form.description.value = product.description;
@@ -55,60 +56,68 @@ document.addEventListener("DOMContentLoaded", function() {
             form.imageUrl.value = product.imageUrl;
             deleteButton.style.display = "block";
         })
-        .catch(error => {
+        .catch(error => {                           //?Metodo che ti fa capire se abbiamo errori 
             console.log(error);
         });
     }
-                                                                                            //!--------------INIZIO CREAZIONE-----------------------------------
+
     function createProduct(product) {
-        fetch("https://striveschool-api.herokuapp.com/api/product/", {
+        fetch("https://striveschool-api.herokuapp.com/api/product/", {  
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmIxODdjMjM5YzAwMTUyZjRiNGEiLCJpYXQiOjE3MTgzNTI2NjQsImV4cCI6MTcxOTU2MjI2NH0.zfSPnMsez_qRyGwpyoUXFHXNnLnpQfeQ2VE-C7Lty0c"            },
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmIxODdjMjM5YzAwMTUyZjRiNGEiLCJpYXQiOjE3MTgzNTI2NjQsImV4cCI6MTcxOTU2MjI2NH0.zfSPnMsez_qRyGwpyoUXFHXNnLnpQfeQ2VE-C7Lty0c"
+            },
             body: JSON.stringify(product)
         })
-        .then(response => {
+        .then(response => {                             //? E' una risposta alla 'richiesta' (del fetch sopprastante) è true (ovvero se abbiamo il response.ok) 
             if (response.ok) {
-                window.location.href = "/";
+                window.location.href = "/";             //? reindirizza l'utente alla home page
+            } else {
+                throw new Error("Failed to create product"); 
             }
-            throw new Error("response");
         })
         .catch(error => {
             console.log(error);
         });
     }
 
-    function updateProduct(id, product) {                                                   //!--------------INIZIO MODIFICHE CREAZIONE -----------------------------------
-        fetch("https://striveschool-api.herokuapp.com/api/product/" + id, {
+    function updateProduct(id, product) {
+        fetch(`https://striveschool-api.herokuapp.com/api/product/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-               "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmIxODdjMjM5YzAwMTUyZjRiNGEiLCJpYXQiOjE3MTgzNTI2NjQsImV4cCI6MTcxOTU2MjI2NH0.zfSPnMsez_qRyGwpyoUXFHXNnLnpQfeQ2VE-C7Lty0c"},
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmIxODdjMjM5YzAwMTUyZjRiNGEiLCJpYXQiOjE3MTgzNTI2NjQsImV4cCI6MTcxOTU2MjI2NH0.zfSPnMsez_qRyGwpyoUXFHXNnLnpQfeQ2VE-C7Lty0c"
+            },
             body: JSON.stringify(product)
         })
         .then(response => {
             if (response.ok) {
                 window.location.href = "/";
+            } else {
+                throw new Error("ERORRE");
             }
-            throw new Error(" response");
         })
         .catch(error => {
             console.log(error);
         });
     }
-                                                                                                //!--------------INIZIO ELIMINAZIONE-----------------------------------
+
     function deleteProduct(id) {
-        fetch("https://striveschool-api.herokuapp.com/api/product/" + id, {
+        console.log(id);
+        fetch(`https://striveschool-api.herokuapp.com/api/product/${id}`, {
             method: "DELETE",
             headers: {
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmIxODdjMjM5YzAwMTUyZjRiNGEiLCJpYXQiOjE3MTgzNTI2NjQsImV4cCI6MTcxOTU2MjI2NH0.zfSPnMsez_qRyGwpyoUXFHXNnLnpQfeQ2VE-C7Lty0c"        }
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjZiZmIxODdjMjM5YzAwMTUyZjRiNGEiLCJpYXQiOjE3MTgzNTI2NjQsImV4cCI6MTcxOTU2MjI2NH0.zfSPnMsez_qRyGwpyoUXFHXNnLnpQfeQ2VE-C7Lty0c"
+            }
         })
         .then(response => {
+            console.log(response.status);
             if (response.ok) {
                 window.location.href = "/";
+            } else {
+                throw new Error("ERRORE");
             }
-            throw new Error("Response");
         })
         .catch(error => {
             console.log(error);
